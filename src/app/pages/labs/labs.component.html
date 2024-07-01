@@ -1,0 +1,38 @@
+<div class="container">
+<h1>Hola!</h1>
+  <h2>{{welcome}}</h2>
+
+  <hr />
+  <h2>{{  'Hola'.repeat(4) }}</h2>
+  <p>La suma de 3 + 3 es {{ 3 + 3 }} </p>
+  <p>Hola soy {{ name() }} y mi edad es {{ age }}</p>
+  <hr />
+  <img [src]="person.avatar" alt="">
+  <input type="number" [value]="person.age">
+  <button [disabled]="disabled">Click me </button>
+  <p>person: {{ person.name }}</p>
+  <hr />
+  <button (click)="clickHandler()">click me</button>
+  <button (dblclick)="clickHandler()">Double click me</button>
+  <p>(change)</p>
+  <input type="number" [value]="person.age" (change)="changeHandler($event)">
+  <p>(change)</p>
+  <input type="text" [value]="person.name" (change)="changeHandler($event)">  
+  <p>(keydown)</p>
+  <input type="text" [value]="person.name" (keydown)="keydownHandler($event)">  
+  <p>(keydown shift)</p>
+  <input type="text" [value]="person.name" (keydown.shift.t)="clickHandler()"> 
+
+  <h1>Signals</h1>
+  <input type="text" [value]="name()" (keydown.enter)="changeHandler($event)"> 
+
+  <hr />
+  
+  <ul>
+    <p>Cantidad de elementos en la lista: {{ tasks().length }}</p>
+    <li *ngFor="let task of tasks(); index as i">
+      {{ i }} {{ task }}
+    </li>
+  </ul>
+
+</div>
