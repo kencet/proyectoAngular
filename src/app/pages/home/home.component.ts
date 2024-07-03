@@ -2,11 +2,12 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Task } from "./../../models/task.model";
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports : [RouterOutlet, CommonModule],
+  imports : [RouterOutlet, CommonModule, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -24,10 +25,23 @@ export class HomeComponent {
     },
   ]);
 
-  changeHandler(event : Event) {
-    const input = event.target as HTMLInputElement;
-    const newTask = input.value;
-    this.addTasks(newTask);
+    newTaskCtrl = new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+
+      ]
+      
+    })
+
+  changeHandler() {
+    if(this.newTaskCtrl.valid){
+      const value = this.newTaskCtrl.value.trim();
+      if(value!== ''){
+        this.addTasks(value);
+        this.newTaskCtrl.setValue('');
+      }
+    }
   }
   addTasks (tittle: string) {
     const newTask = {

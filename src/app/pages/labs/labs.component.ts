@@ -31,6 +31,12 @@ export class LabsComponent {
 
   colorCtrl = new FormControl();
 
+  constructor(){
+    this.colorCtrl.valueChanges.subscribe(value => {
+      console.log(value) 
+    })
+  }
+
   clickHandler() {
     alert("hola")
   }
