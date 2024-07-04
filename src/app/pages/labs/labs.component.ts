@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { signal } from '@angular/core'
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-labs',
@@ -30,6 +30,16 @@ export class LabsComponent {
   })
 
   colorCtrl = new FormControl();
+  widthCtrl = new FormControl(50 , {
+    nonNullable: true,
+  });
+  nameCtrl = new FormControl('nicolas' , {
+    nonNullable: true,
+    validators: [
+      Validators.required,
+      Validators.minLength(3),
+    ]
+  });
 
   constructor(){
     this.colorCtrl.valueChanges.subscribe(value => {
