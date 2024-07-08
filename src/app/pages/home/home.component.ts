@@ -12,18 +12,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  tasks = signal<Task[]>([
-    {
-      id: Date.now(),
-      tittle: "Crear proyecto",
-      completed: false
-    },
-    {
-      id: Date.now(),
-      tittle: "Crear proyecto2",
-      completed: false
-    },
-  ]);
+  tasks = signal<Task[]>([]);
   
     filter = signal<'all' | 'pending' | 'completed'>('all');
     tasksByFilter = computed(() => {
@@ -46,6 +35,24 @@ export class HomeComponent {
       
     })
 
+injector = inject(Injector)
+
+trackTask(){
+	effects(() => {
+			const tasks = this.tasks();
+			localStorage.setItem('tasks', JSON.stringify(tasks));
+	}, { injector: this.injector });
+}
+
+ngOnInit(){
+	const storage = localStorage.getItem('tasks');
+	if(storage){
+		const tasks = JSON.parse(storage);
+		this.tasks.set(tasks);
+		}
+	this.trackTasks();
+}
+  
   changeHandler() {
     if(this.newTaskCtrl.valid){
       const value = this.newTaskCtrl.value.trim();
