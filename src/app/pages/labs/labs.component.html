@@ -35,6 +35,16 @@
     </li>
   </ul>
 
+    <ul>
+    <p>Cantidad de elementos en la lista: {{ tasks().length }}</p>
+    @for(let task of tasks(); track task; let i = $index){
+      <li> {{ i }} {{ task }} </li>
+    }@empty{
+      <li><strong>La lista está en blanco</strong></li>
+    }
+
+  </ul>
+
   <input type="number" [value]="person().age" (change)="changeAge($event)">
   <div *ngIf="person().name === 'nicolas' && person().age > 18; else elseBlock">
 		Ejemplo de ngIf
@@ -60,6 +70,23 @@
     <p *ngSwitchCase="'javier'"> Yo soy javier</p>
     <p *ngSwitchDefault> Yo no soy nadie</p>
   </div>
+  <div>
+    @switch(person().name){
+      @case(nicolas){
+          <p> Yo soy nicolas</p>
+
+      }@case(ana){
+          <p> Yo soy ana</p>
+      }@case(pet){
+          <p> Yo soy pet</p>
+      }@case(javier){
+          <p> Yo soy javier</p>
+      }@defaukt{
+          <p> Yo no soy nadie</p>
+      }
+    }
+  </div>
+  
   <hr>
   <input type="color" [formControl]="colorCtrl"> 
   <p>color: {{ colorCtrl.value }}</p>
