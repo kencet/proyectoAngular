@@ -39,9 +39,17 @@
   <div *ngIf="person().name === 'nicolas' && person().age > 18; else elseBlock">
 		Ejemplo de ngIf
   </div>
-  <ng-template #elseBlock>
+   <ng-template #elseBlock>
       Ejemplo del else
   </ng-template>
+  
+  @if(person().name === 'nicolas' && person().age > 18){
+    <strong>Ejemplo de @if</strong>
+  }
+  @else{
+    <i>Ejemplo de @else</i>
+  }
+ 
 
 
   <input type="text" [value]="name()" (keydown.enter)="changeHandler($event)">
